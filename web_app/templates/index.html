@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Robin Robotics</title>
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../static/jquery.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <style media="screen">
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #2c3e50;z-index:0">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand navItems navHeader" style="font-color:white;" href="#">MINOR PROJECT DEMO</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" class="navItems navButtons">Login</a></li>
+          <li><a href="#" class="navItems navButtons">Signup</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row" id='mainCam'>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+        <div class="row" style="height:250px; background-color:#95a5a6">
+          <div class="col-md-10 col-md-offset-1">
+            <img id='frontCamImage' src="" alt="" />
+            <h2>Web Controlled Raspberry Pi Robot</h2>
+          </div>
+        </div>
+        <div class="row" style="height:150px; background-color:#c0392b">
+          <div class="col-md-10 col-md-offset-1">
+            <font size="3" color="Black">Error Message from Robot</font>
+            <h3 style="color:#ecf0f1" id='errorBox'></h3>
+          </div>
+        </div>
+        <div class="row" style="height:80px; background-color:#8e44ad">
+          <div class="col-md-12">
+            <div class="input-group input-group-lg" style="margin:5%;">
+              <span class="input-group-addon">></span>
+
+
+              <!--              <form action="/formsubmit" method="post">
+              <input id="cmd" name="cmd" type="text" class="form-control" placeholder="Command" aria-describedby="sizing-addon1">
+              <p><input type = "submit" value = "submit" /></p>
+            </form>   -->
+              <form action="/formsubmit" method="post">
+                <input type="text" name="projectFilepath">
+                <input type="submit">
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="navbar-default navbar-fixed-bottom" style="background-color: #2c3e50;padding:20px 0 20px 0">
+    <div class="container-fluid">
+      <button onclick="navigate('up')" type="button" class="btn btn-primary btn-lg auto-button"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span></button>
+      <button onclick="navigate('down')" type="button" class="btn btn-primary btn-lg auto-button"><span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span></button>
+      <button onclick="navigate('left')" type="button" class="btn btn-primary btn-lg auto-button"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></button>
+      <button onclick="navigate('right')" type="button" class="btn btn-primary btn-lg auto-button"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></button>
+      <button onclick="navigate('a')" type="button" class="btn btn-primary btn-lg auto-button control-button">Shake Hands</button>
+      <button onclick="navigate('b')" type="button" class="btn btn-primary btn-lg auto-button control-button">Point Left</button>
+      <button onclick="navigate('c')" type="button" class="btn btn-primary btn-lg auto-button control-button">Point Right</button>
+      <button onclick="navigate('d')" type="button" class="btn btn-primary btn-lg auto-button control-button">Look up</button>
+      <button onclick="navigate('e')" type="button" class="btn btn-primary btn-lg auto-button control-button">Look down</button>
+      <button onclick="navigate('f')" type="button" class="btn btn-primary btn-lg auto-button control-button">Look Left</button>
+      <button onclick="navigate('g')" type="button" class="btn btn-primary btn-lg auto-button control-button">Look Right</button>
+      <button onclick="navigate('h')" type="button" class="btn btn-primary btn-lg auto-button control-button">Push</button>
+
+    </div>
+  </footer>
+  <script type="text/javascript">
+    var navigate = function(input) {
+        $.post("/buttonclick", {
+          data: input
+        }, function(data, status) {
+          //console.log(data);
+        });
+      }
+      //Function to show error in the UI
+    var showError = function(error) {
+      $('#errorBox').html(error)
+    };
+    //Sample Usage
+    showError("Error Messages from Robot");
+
+    var myFunction = function() {
+      $.post("/update_error", {
+        data: " "
+      }, function(data, status) {
+        //console.log(data);
+        showError(data);
+      });
+    };
+    myFunction();
+    setInterval(myFunction, 1000);
+  </script>
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <script>
+    var domain = "meet.jit.si";
+    var options = {
+      roomName: "robinrobotics",
+      // width: 800,
+      height: 480,
+      parentNode: document.querySelector('#mainCam'),
+      configOverwrite: {},
+      interfaceConfigOverwrite: {
+        filmStripOnly: false
+      }
+    }
+    var api = new JitsiMeetExternalAPI(domain, options);
+  </script>
+</body>
+
+</html>

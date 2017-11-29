@@ -1,0 +1,18 @@
+.auto-button{
+  margin-right: 10px;
+  background-color: #4280f4;
+}
+
+.navItems{
+  font-weight:bold;
+  color:#ecf0f1 !important
+}
+.navItems:hover{
+  color:#bdc3c7 !important
+}
+.navHeader{
+  font-size: 32px;
+}
+.navButtons{
+  font-size:18px;
+}
